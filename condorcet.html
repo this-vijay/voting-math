@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>The Math of Voting</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Unica+One|Vollkorn&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+  <script src="./libraries/katex.min.js"></script>
+  <script src="./libraries/p5.min.js"></script>
+  <script src="./libraries/marked.min.js"></script>
+  <script src="./libraries/vue.js"></script>
+  <script src="./libraries/vue-observe-visibility.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <meta name="description" content="Interactive Sandbox" />
+
+</head>
+<body>
+
+
+<div id="root" class="container">
+
+<md>
+# The Math of Voting
+### How we can elect leaders that better represent our interests
+
+<div class="flex-container">
+ <img src="./images/banner.png" class="shrinkToFit" width="100%">
+</div>
+
+<hr>
+
+## Chapter 4: A Perfect Voting System?
+
+
+
+I've been thinking about what the ghosts said...
+</md>
+
+<div class="video-container">
+  <iframe
+      src="https://www.youtube.com/embed/QPcTcM_zR_w"
+      width="700"
+      height="480"
+      frameborder="0"
+      allowfullscreen="">
+  </iframe>
+</div>
+
+
+
+
+<mcq label="Exercise 1" palette="condorcet" :images="[`./images/condorcet-exercise1a.png`, `./images/condorcet-exercise1b.png`, `./images/condorcet-exercise1c.png`]" :choices="[
+    {
+      correct: false,
+      answer: `Nina > Iswar > Sylas`,
+      response: `No, that can't be right: two out of three people prefer Iswar over Nina.`
+    },
+    {
+      correct: false,
+      answer: `Sylas > Iswar > Nina`,
+      response: `No, that can't be right: we already saw that Nina is collectively preferred to Sylas.`
+    },
+    {
+      correct: true,
+      answer: `Iswar > Nina > Sylas`,
+      response: `Yes, exactly!`
+    },
+    {
+      correct: false,
+      answer: `Nina > Sylas > Iswar`,
+      response: `No, that can't be right: two out of three people prefer Iswar to Sylas.`
+    }
+  ]">
+</mcq>
+
+
+<md>I thought I was on to something big!  But then...</md>
+<div class="video-container">
+  <iframe
+      src="https://www.youtube.com/embed/qPdE4MPPrx0"
+      width="700"
+      height="480"
+      frameborder="0"
+      allowfullscreen="">
+  </iframe>
+</div>
+
+
+  <div class="exercise-box condorcet">
+    <h4>Exercise 2</h4>
+    <img src="./images/condorcet-exercise2.png" class="shrinkToFit" width="90%">
+    <br>
+    <p>Check all preferences that are true collectively:</p>
+        <div><input type="checkbox" v-model="paradox.in"> Iswar > Nina</div>
+        <div><input type="checkbox" v-model="paradox.ns"> Nina > Sylas</div>
+        <div><input type="checkbox" v-model="paradox.si"> Sylas > Iswar</div>
+    <p v-if="paradox.in & paradox.ns & paradox.si" class="true">Correct!  But that means Iswar > Sylas *and* Sylas > Iswar.  Which makes no sense!!!</p>
+    <p v-else class="false">Not all collective preferences have been checked.  Keep working.</p>
+  </div>
+
+<md>Uh oh!  This is not good!</md>
+<div class="video-container">
+  <iframe
+      src="https://www.youtube.com/embed/6kZHVVAh0zM"
+      width="700"
+      height="480"
+      frameborder="0"
+      allowfullscreen="">
+  </iframe>
+</div>
+
+
+
+
+<mcq-pictorial label="Exercise 3" palette="condorcet" :images="[`./images/condorcet-exercise3a.png`, `./images/condorcet-exercise3b.png`]" :choices="[
+    {
+      correct: false,
+      answer: `Noodles > Pizza > Burgers`,
+      picture: `./images/food-pref1.png`, 
+      response: `No, 35 out of 60 guests prefer burgers over noodles!`
+    },
+    {
+      correct: false,
+      answer: `Pizza > Burgers > Noodles`,
+      picture: `./images/food-pref2.png`,
+      response: `No, 40 out of 60 guests prefer noodles over pizza!`
+    },
+    {
+      correct: false,
+      answer: `Burgers > Noodles > Pizza`,
+      picture: `./images/food-pref3.png`,
+      response: `No, 45 out of 60 guests prefer pizza over burgers!`
+    },
+    {
+      correct: true,
+      answer: `Sorry boss! It's a cycle!`,
+      picture: `./images/food-pref4.png`,
+      response: `Correct, sadly!  So much for getting my mind off this paradox...`
+    }
+  ]">
+</mcq-pictorial>
+
+
+<md>I can't seem to escape these paradoxes! And they're only the beginning!</md>
+<div class="video-container">
+  <iframe
+      src="https://www.youtube.com/embed/6DElYEfqAo0"
+      width="700"
+      height="480"
+      frameborder="0"
+      allowfullscreen="">
+  </iframe>
+</div>
+
+<md>There may not be a perfect voting system, but that just means we can keep improving the system we have!</md>
+<div class="video-container">
+  <iframe
+      src="https://www.youtube.com/embed/TNGdZAWJxhY"
+      width="700"
+      height="480"
+      frameborder="0"
+      allowfullscreen="">
+  </iframe>
+</div>
+
+
+<mcq-pictorial label="Thank you!" palette="condorcet" :images="[`./images/condorcet-exercise4.png`]" :choices="[
+    {
+      correct: false,
+      answer: `Sylas > Nina > Iswar`,
+      picture: `./images/ticket1.png`, 
+      response: `There's no right or wrong answer.  Just submit your personal ranked preferences.  And don't worry, it's a secret ballot, so nobody will know.`
+    },
+    {
+      correct: false,
+      answer: `Sylas > Iswar > Nina`,
+      picture: `./images/ticket2.png`,
+      response: `There's no right or wrong answer.  Just submit your personal ranked preferences.  And don't worry, it's a secret ballot, so nobody will know.`
+    },
+    {
+      correct: false,
+      answer: `Nina > Sylas > Iswar`,
+      picture: `./images/ticket3.png`,
+      response: `There's no right or wrong answer.  Just submit your personal ranked preferences.  And don't worry, it's a secret ballot, so nobody will know.`
+    },
+    {
+      correct: false,
+      answer: `Nina > Iswar > Sylas`,
+      picture: `./images/ticket4.png`,
+      response: `There's no right or wrong answer.  Just submit your personal ranked preferences.  And don't worry, it's a secret ballot, so nobody will know.`
+    },
+    {
+      correct: false,
+      answer: `Iswar > Sylas > Nina`,
+      picture: `./images/ticket5.png`,
+      response: `There's no right or wrong answer.  Just submit your personal ranked preferences.  And don't worry, it's a secret ballot, so nobody will know.`
+    },
+    {
+      correct: false,
+      answer: `Iswar > Nina > Sylas`,
+      picture: `./images/ticket6.png`,
+      response: `There's no right or wrong answer.  Just submit your personal ranked preferences.  And don't worry, it's a secret ballot, so nobody will know.`
+    }
+  ]">
+</mcq-pictorial>
+
+<md>
+I suppose I can finally let go of being mayor!  Maybe I'll take an early retirement.  Or, maybe I can finally write my great detective novel?  Anyway, right now I need to catch up on sleep.  Goodnight, till we meet again!
+</md>
+
+<div class="flex-container">
+ <a href="./index.html"><img src="./images/bedroom1.png" class="shrinkToFit" width="90%" style="border:4px solid #25343E; border-radius: 15px;"></a>
+</div>
+
+
+
+</div>
+
+<!-- here we define data accessible throughout the page -->
+<script>
+let data = {
+  paradox: {
+    in: false,
+    ns: false,
+    si: false
+  },
+  aside1: {
+    expand: false
+  },
+};
+</script>
+<!-- vue-definitions.js runs vue.js and defines the components -->
+<script src="vue-definitions.js"></script>
+
+</body>
+</html>

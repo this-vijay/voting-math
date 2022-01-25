@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>The Math of Voting</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Unica+One|Vollkorn&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+  <script src="./libraries/katex.min.js"></script>
+  <script src="./libraries/p5.min.js"></script>
+  <script src="./libraries/marked.min.js"></script>
+  <script src="./libraries/vue.js"></script>
+  <script src="./libraries/vue-observe-visibility.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <meta name="description" content="Interactive Sandbox" />
+
+</head>
+<body>
+
+
+<div id="root" class="container">
+
+<md>
+# The Math of Voting
+### How we can elect leaders that better represent our interests
+
+<div class="flex-container">
+ <img src="./images/banner.png" class="shrinkToFit" width="100%">
+</div>
+
+<hr>
+
+## Chapter 1: The Ghost of Elections Past
+
+
+
+Will you listen to what the ghost had to say?
+</md>
+
+
+
+<div class="video-container">
+  <iframe
+      src="https://www.youtube.com/embed/KikQB8ktBrE"
+      width="700"
+      height="480"
+      frameborder="0"
+      allowfullscreen="">
+  </iframe>
+</div>
+
+
+<mcq label="Exercise 1" palette="past" :images="[`./images/past-exercise1a.png`, `./images/past-exercise1b.png`]" :choices="[
+    {
+      correct: false,
+      answer: `Sylas Shaper`,
+      response: `Nope! The total number of votes cast was 238 + 262 = 500. But Sylas Shaper got less than half those votes!`
+    },
+    {
+      correct: true,
+      answer: `Nina Number-Smith`,
+      response: `Yes!  The total number of votes cast was 238 + 262 = 500.  Since Nina Number-Smith won more than 250 votes, she won the majority.`
+    },
+    {
+      correct: false,
+      answer: `Neither of them`,
+      response: `No. With just two candidates running, at least one of them must get the majority vote.  Do you see why?`
+    },
+    {
+      correct: false,
+      answer: `Both of them`,
+      response: `No - since majority means 'more than one half', it is simply not possible for two candidates to both get the majority.`
+    }
+  ]">
+</mcq>
+
+
+<mcq label="Exercise 2" palette="past" :images="[`./images/past-exercise2.png`]" :choices="[
+    {
+      correct: false,
+      answer: `249`,
+      response: `No...`
+    },
+    {
+      correct: false,
+      answer: `250`,
+      response: `Almost, but the majority requires *more* than half the votes.`
+    },
+    {
+      correct: true,
+      answer: `251`,
+      response: `Yes, if the candidate wins 251 votes, they will have the majority.`
+    },
+    {
+      correct: false,
+      answer: `500`,
+      response: `Nope.  Winning all 500 votes does give the majority, but it is far more than the minimum needed to get the majority.`
+    }
+  ]">
+</mcq>
+
+
+<mcq label="Exercise 3" palette="past" :images="[`./images/past-exercise3.png`]" :choices="[
+    {
+      correct: false,
+      answer: `Sylas Shaper`,
+      response: `Nope, he's not even close.`
+    },
+    {
+      correct: false,
+      answer: `Nina Number-Smith`,
+      response: `No, she's not even close.`
+    },
+    {
+      correct: false,
+      answer: `The Ghost of Elections Past`,
+      response: `I did win the most votes out of the three candidates...but sadly I still didn't win enough votes to get the majority.`
+    },
+    {
+      correct: true,
+      answer: `Nobody`,
+      response: `Correct!  Nobody has reached 251 votes, so nobody has won the majority! How curious...`
+    }
+  ]">
+</mcq>
+
+
+
+<md>Perhaps <i>majority</i> is too narrow a term?</md>
+<div class="video-container">
+  <iframe
+      src="https://www.youtube.com/embed/GyQT7CvlV9Y"
+      width="700"
+      height="480"
+      frameborder="0"
+      allowfullscreen="">
+  </iframe>
+</div>
+
+
+
+<mcq label="Exercise 4" palette="past" 
+:images="[
+`./images/past-exercise4.png`
+]" 
+:choices="[
+    {
+      correct: false,
+      answer: `Candidate A`,
+      response: `Nope, Candidate A won the fewest votes!`
+    },
+    {
+      correct: true,
+      answer: `Candidate B`,
+      response: `Correct! Candidate B has snagged the highest percentage of votes.`
+    },
+    {
+      correct: false,
+      answer: `Candidate C`,
+      response: `Nope!`
+    },
+    {
+      correct: false,
+      answer: `Candidate D`,
+      response: `No.`
+    },
+    {
+      correct: false,
+      answer: `Candidate E`,
+      response: `No, sorry!`
+    }
+  ]">
+</mcq>
+
+
+
+<mcq label="Exercise 5" palette="past" 
+:images="[
+`./images/past-exercise5.png`
+]" 
+:choices="[
+    {
+      correct: false,
+      answer: `Yes, he is guaranteed to win the plurality vote.`,
+      response: `Sorry, but only in Sylas's wildest dreams!`
+    },
+    {
+      correct: false,
+      answer: `Yes, he has a chance, provided no other candidate wins the majority vote.`,
+      response: `Nope!  If all the other candidates win less votes than Sylas, their percentages will total to less than 100%, which is impossible!`
+    },
+    {
+      correct: false,
+      answer: `Yes, he has a chance, if the other four candidates all do very poorly.`,
+      response: `No!  No matter how poorly the other candidates do, at least one of them will win over 20% of the votes.`
+    },
+    {
+      correct: true,
+      answer: `No, he has no chance of winning the plurality vote.`,
+      response: `Correct!  With five candidates, the plurality winner will have a minimum of 20% of the votes.`
+    }
+  ]">
+</mcq>
+
+
+
+<md>Alas, things are not so simple!</md>
+<div class="video-container">
+  <iframe
+      src="https://www.youtube.com/embed/UsCDubL8Ol0"
+      width="700"
+      height="480"
+      frameborder="0"
+      allowfullscreen="">
+  </iframe>
+</div>
+
+<mcq label="Exercise 6" palette="past" 
+:images="[
+`./images/past-exercise6.png`
+]" 
+:choices="[
+    {
+      correct: false,
+      answer: `Sylas Shaper`,
+      response: `Nope, he only won two districts.`
+    },
+    {
+      correct: true,
+      answer: `Nina Number-Smith`,
+      response: `Yes!  She won three of the five districts.`
+    },
+    {
+      correct: false,
+      answer: `It's a tie`,
+      response: `Nope, there is a clear winner.`
+    },
+    {
+      correct: false,
+      answer: `Need more information`,
+      response: `Sorry, but there *is* enough information.  Look more carefully.`
+    }
+  ]">
+</mcq>
+
+<mcq label="Exercise 7" palette="past" 
+:images="[
+`./images/past-exercise7.png`
+]" 
+:choices="[
+    {
+      correct: true,
+      answer: `Sylas Shaper`,
+      response: `Yes!  Despite losing the popular vote, Sylas won three out of five districts, which makes him the winner!`
+    },
+    {
+      correct: false,
+      answer: `Nina Number-Smith`,
+      response: `No!  She did win the popular vote, and by a landslide...Yet she lost the election, by winning only two out of five districts.`
+    },
+    {
+      correct: false,
+      answer: `It's a tie`,
+      response: `Nope, there is a clear winner.`
+    },
+    {
+      correct: false,
+      answer: `Need more information`,
+      response: `Sorry, but there *is* enough information.  Look more carefully.`
+    }
+  ]">
+</mcq>
+
+
+
+<div class="video-container">
+  <iframe
+      src="https://www.youtube.com/embed/xXR3hR9B7VQ"
+      width="700"
+      height="480"
+      frameborder="0"
+      allowfullscreen="">
+  </iframe>
+</div>
+
+<mcq label="Exercise 8" palette="past" 
+:images="[
+`./images/past-exercise8.png`
+]" 
+:choices="[
+    {
+      correct: false,
+      answer: `100 seats`,
+      response: `Nope, that's too small!`
+    },
+    {
+      correct: false,
+      answer: `119 seats`,
+      response: `No, that's not enough.`
+    },
+    {
+      correct: true,
+      answer: `272 seats`,
+      response: `Yes!  That's just over half of 543.`
+    },
+    {
+      correct: false,
+      answer: `508 seats`,
+      response: `No, a party can control the majority with far fewer seats.`
+    }
+  ]">
+</mcq>
+
+
+
+<div class="video-container">
+  <iframe
+      src="https://www.youtube.com/embed/xph8VFMMt0A"
+      width="700"
+      height="480"
+      frameborder="0"
+      allowfullscreen="">
+  </iframe>
+</div>
+
+
+<mcq label="Good luck!" palette="past" 
+:images="[
+`./images/past-exercise9a.png`,
+`./images/past-exercise9b.png`
+]">
+</mcq>
+
+
+
+<md>
+This nocturnal visitation provided a useful history lesson, which also seems quite relevant to the upcoming election.  But wait till you hear what happened next!<a href="./present.html">A second paranormal encounter was in store for me the following night!</a>
+</md>
+
+<div class="flex-container">
+ <a href="./present.html"><img src="./images/bedroom3.png" class="shrinkToFit" width="90%" style="border:4px solid #25343E; border-radius: 15px;"></a>
+</div>
+
+
+
+</div>
+
+<!-- here we define data accessible throughout the page -->
+<script>
+let data = {
+
+  aside1: {
+    expand: false
+  },
+};
+</script>
+<!-- vue-definitions.js runs vue.js and defines the components -->
+<script src="vue-definitions.js"></script>
+
+</body>
+</html>

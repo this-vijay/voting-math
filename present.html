@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>The Math of Voting</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Unica+One|Vollkorn&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+  <script src="./libraries/katex.min.js"></script>
+  <script src="./libraries/p5.min.js"></script>
+  <script src="./libraries/marked.min.js"></script>
+  <script src="./libraries/vue.js"></script>
+  <script src="./libraries/vue-observe-visibility.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <meta name="description" content="Interactive Sandbox" />
+
+</head>
+<body>
+
+
+<div id="root" class="container">
+
+<md>
+# The Math of Voting
+### How we can elect leaders that better represent our interests
+
+<div class="flex-container">
+ <img src="./images/banner.png" class="shrinkToFit" width="100%">
+</div>
+
+<hr>
+
+## Chapter 2: The Ghost of Elections Present
+
+
+
+Another ghost? Life just keeps getting stranger...
+</md>
+
+
+<div class="video-container">
+  <iframe
+      src="https://www.youtube.com/embed/VCaNfdYqYmM"
+      width="700"
+      height="480"
+      frameborder="0"
+      allowfullscreen="">
+  </iframe>
+</div>
+
+<md>What on earth is gerrymandering?</md>
+<div class="video-container">
+  <iframe
+      src="https://www.youtube.com/embed/29-_HaOSUIo"
+      width="700"
+      height="480"
+      frameborder="0"
+      allowfullscreen="">
+  </iframe>
+</div>
+
+
+<mcq-pictorial label="Exercise 1" palette="present" :images="[`./images/present-exercise1.png`]" :choices="[
+    {
+      correct: false,
+      answer: `Option 1`,
+      picture: `./images/3x3-map1.png`, 
+      response: `Nope,this option favors Sylas Shaper, giving him two out of three districts.`
+    },
+    {
+      correct: true,
+      answer: `Option 2`,
+      picture: `./images/3x3-map2.png`, 
+      response: `Yes!  She wins two out of three districts with Option 2! Are there any other options that lead her to victory?`
+    },
+    {
+      correct: false,
+      answer: `Option 3`,
+      picture: `./images/3x3-map3.png`, 
+      response: `Nope,this option favors Sylas Shaper, giving him two out of three districts.`
+    },
+    {
+      correct: true,
+      answer: `Option 4`,
+      picture: `./images/3x3-map4.png`, 
+      response: `Yes!  She wins two out of three districts with Option 4!  Are there any other options that lead her to victory?`
+    }
+  ]">
+</mcq-pictorial>
+
+
+<mcq label="Exercise 2" palette="present" :images="[`./images/present-exercise2.png`]" :choices="[
+    {
+      correct: false,
+      answer: `Plan A favors Nina, Plan B favors Sylas.`,
+      response: `No, better take a closer look.`
+    },
+    {
+      correct: true,
+      answer: `Plan A favors Sylas, Plan B favors Nina.`,
+      response: `Yes!  Sylas wins 4 out of 5 districts using Plan A, and Nina wins 4 out of 5 districts using Plan B!`
+    },
+    {
+      correct: false,
+      answer: `Both plans favor Nina.`,
+      response: `No, take a closer look!`
+    },
+    {
+      correct: false,
+      answer: `Both plans favor Sylas.`,
+      response: `Nope, look more carefully.`
+    }
+  ]">
+</mcq>
+
+<md>Behold, the art of <i>cracking</i> and <i>packing</i>.</md>
+<div class="video-container">
+  <iframe
+      src="https://www.youtube.com/embed/TUmHZ-Yn1oc"
+      width="700"
+      height="480"
+      frameborder="0"
+      allowfullscreen="">
+  </iframe>
+</div>
+
+<mcq label="Exercise 3" palette="present" :images="[`./images/present-exercise3.png`]" :choices="[
+    {
+      correct: false,
+      answer: `30%`,
+      response: `Nah, he did a little better than that.`
+    },
+    {
+      correct: true,
+      answer: `36%`,
+      response: `Correct!  He won 9 out of 25 votes, which is 36%.`
+    },
+    {
+      correct: false,
+      answer: `42%`,
+      response: `Not even!`
+    },
+    {
+      correct: false,
+      answer: `50%`,
+      response: `Hardly!  He's a sneaky fellow, and managed victory with significantly less popular mandate!`
+    }
+  ]">
+</mcq>
+
+
+<md>Just how low can you go?</md>
+<div class="video-container">
+  <iframe
+      src="https://www.youtube.com/embed/pldIU9CkaS8"
+      width="700"
+      height="480"
+      frameborder="0"
+      allowfullscreen="">
+  </iframe>
+</div>
+
+
+
+
+<mcq label="Exercise 4" palette="present" 
+:images="[
+`./images/present-exercise4a.png`,
+`./images/present-exercise4b.png`
+]">
+</mcq>
+
+<md>How does one draw a less suspicious district?</md>
+<div class="video-container">
+  <iframe
+      src="https://www.youtube.com/embed/sB38zJcorCw"
+      width="700"
+      height="480"
+      frameborder="0"
+      allowfullscreen="">
+  </iframe>
+</div>
+
+   
+
+  <div class="exercise-box present">
+    <h4>Exercise 5</h4>
+    <img src="./images/present-exercise5.png" class="shrinkToFit" width="90%">
+    <br>
+    <p>Move all three sliders into the correct positions.</p>
+      <label class="row half bigsplash">
+        <div>Area of Square: <span>{{area.square}}</span> units</div>
+        <slider v-model="area.square" :min="1" :max="12" :step="1"></slider>
+      </label>
+      <label class="row half bigsplash">
+        <div>Area of Triangle: <span>{{area.triangle}}</span> units</div>
+        <slider v-model="area.triangle" :min="1" :max="12" :step="1"></slider>
+      </label>
+      <label class="row half bigsplash">
+        <div>Area of Rectangle: <span>{{area.rectangle}}</span> units</div>
+        <slider v-model="area.rectangle" :min="1" :max="12" :step="1"></slider>
+    </label>
+    <p v-if="area.square==9 & area.triangle==6 & area.rectangle==5" class="true">Correct! The square has 9 units of area, giving it the highest area to perimeter ratio of the three given shapes.</p>
+    <p v-else class="false">The sliders are not in the correct positions yet!  Keep working.</p>
+  </div>
+
+
+
+
+
+<mcq label="Exercise 6" palette="present" 
+:images="[
+`./images/present-exercise6.png`
+]" 
+:choices="[
+    {
+      correct: false,
+      answer: `9.34`,
+      response: `No.  Why don't you first try calculating the radius of the circle.`
+    },
+    {
+      correct: false,
+      answer: `10.78`,
+      response: `Nope.  Why don't you first try calculating the radius of the circle.`
+    },
+    {
+      correct: true,
+      answer: `11.46`,
+      response: `Yes, 36/pi is approximately 11.46.`
+    },
+    {
+      correct: false,
+      answer: `12.23`,
+      response: `Sorry, but no.  Why don't you first try calculating the radius of the circle.`
+    }
+  ]">
+</mcq>
+
+
+<mcq-pictorial label="Exercise 7" palette="present" :images="[`./images/present-exercise7a.png`, `./images/present-exercise7b.png`]" :choices="[
+    {
+      correct: false,
+      answer: `Option 1`,
+      picture: `./images/4x4-option1.png`, 
+      response: `No, these thin rectangular districts are not very neutral.`
+    },
+    {
+      correct: false,
+      answer: `Option 2`,
+      picture: `./images/4x4-option2.png`, 
+      response: `Not quite.  This map has two 2x2 square districts, which are indeed neutral.  But the L shaped districts are not very neutral.`
+    },
+    {
+      correct: true,
+      answer: `Option 3`,
+      picture: `./images/4x4-option3.png`, 
+      response: `Yes, this map consists entirely of 2x2 square districts, which are 
+      the most neutral.`
+    },
+    {
+      correct: false,
+      answer: `Option 4`,
+      picture: `./images/4x4-option4.png`, 
+      response: `No, the L shaped districts in this map are not very neutral.`
+    }
+  ]">
+</mcq-pictorial>
+
+
+
+
+<md>But you have to be careful. Neutrality is not the same as fairness.</md>
+<div class="video-container">
+  <iframe
+      src="https://www.youtube.com/embed/piY-eVeczQM"
+      width="700"
+      height="480"
+      frameborder="0"
+      allowfullscreen="">
+  </iframe>
+</div>
+
+
+<mcq label="Good luck!" palette="present" 
+:images="[
+`./images/present-exercise8.png`,
+]">
+</mcq>
+
+
+
+<md>
+Useful lessons indeed!  But I began to wonder who would believe me, given their other-worldly source.<a href="./future.html">And now how could I be expected to sleep, with yet another ghost on its way?</a>
+</md>
+
+<div class="flex-container">
+ <a href="./future.html"><img src="./images/bedroom4.png" class="shrinkToFit" width="90%" style="border:4px solid #25343E; border-radius: 15px;"></a>
+</div>
+
+
+
+</div>
+
+<!-- here we define data accessible throughout the page -->
+<script>
+let data = {
+  area: {
+    square: 7,
+    triangle: 7,
+    rectangle: 7
+  },
+  aside1: {
+    expand: false
+  },
+};
+</script>
+<!-- vue-definitions.js runs vue.js and defines the components -->
+<script src="vue-definitions.js"></script>
+
+</body>
+</html>
